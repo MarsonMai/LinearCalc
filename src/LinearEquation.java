@@ -4,7 +4,7 @@ public class LinearEquation {
     private int y1;
     private int y2;
 
-    public LinearEquation(int x1,int x2,int y1, int y2) {
+    public LinearEquation(int x1,int y1,int x2, int y2) {
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
@@ -20,7 +20,7 @@ public class LinearEquation {
     public double yIntercept() {
         double yChange = y2 - y1;
         double xChange = x2 - x1;
-        double yInt1 = x2 - yChange/xChange;
+        double yInt1 = (yChange / xChange * x2 - y2);
         return roundedToHundredth(yInt1);
     }
     public double slope() {
@@ -32,18 +32,23 @@ public class LinearEquation {
         if (y2 == y1) {
             return "y = " + yIntercept();
         } else {
-            return "y = " + slope() + "x" + " + " + yIntercept();
+            return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " + " + Math.abs(yIntercept());
         }
     }
     public String coordinateForX(double x) {
-        return "(" + x + "," + ((slope() * x) + yIntercept()) + ")";
+        return "(" + x + "," + ((slope() * x) + Math.abs(yIntercept())) + ")";
     }
     public String LineInfo() {
-        String str = "The 2 points are: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")\n";
-        str += "The equation of the line between these points is: " + equation() + "\n";
-        str += "The slope of the line is: " + slope() + "\n";
-        str += "The y-int of the line is: " + yIntercept() + "\n";
-        str += "The distance between these two lines is " + distance();
-        return str;
+        if (x2 != x1) {
+            String str = "The 2 points are: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")\n";
+            str += "The equation of the line between these points is: " + equation() + "\n";
+            str += "The slope of the line is: " + slope() + "\n";
+            str += "The y-int of the line is: " + Math.abs(yIntercept()) + "\n";
+            str += "The distance between these two lines is " + distance();
+            return str;
+        } else {
+            String str = "The 2 x values are equal so its undefined!";
+            return str;
+        }
     }
 }
