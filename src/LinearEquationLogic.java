@@ -34,11 +34,11 @@ public class LinearEquationLogic {
             if (x1 != x2) {
                 System.out.print("Enter a value for x: ");
                 int newX = myScanner.nextInt();
-                linearEquation.coordinateForX(newX);
+                System.out.println(linearEquation.coordinateForX(newX));
             }
             System.out.print("Would you like to enter another pair of coordinates? y/n: ");
             x = myScanner.nextLine();
-
+    
         }
     }
 
