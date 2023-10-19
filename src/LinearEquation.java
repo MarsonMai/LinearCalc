@@ -29,8 +29,12 @@ public class LinearEquation {
         return roundedToHundredth((yChange/xChange));
     }
     public String equation() {
+        if (yIntercept() == 0)
+            return "y = " + slope() + "x" + " ";
         if (y2 == y1) {
-            return "y = " + yIntercept();
+            return "y = " + Math.abs(yIntercept());
+        } else if ( (int) slope() == slope()) {
+            return "y = " + slope() + "x" + " + " + Math.abs(yIntercept());
         } else {
             return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " + " + Math.abs(yIntercept());
         }
@@ -47,7 +51,7 @@ public class LinearEquation {
             str += "The distance between these two lines is " + distance();
             return str;
         } else {
-            String str = "The 2 x values are equal so its undefined!";
+            String str = "The 2 x-values are equal so its undefined!";
             return str;
         }
     }
