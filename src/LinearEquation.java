@@ -1,87 +1,50 @@
-public class LinearEquation {
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
-    public LinearEquation(int x1,int y1,int x2, int y2) {
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+import java.util.Scanner;
+public class LinearEquationLogic {
+    private Scanner myScanner;
+    private LinearEquation linearEquation;
+    public LinearEquationLogic() {
+        linearEquation = null;
+        myScanner = new Scanner(System.in);
     }
-    public double roundedToHundredth(double toRound) {
-        return Math.round(toRound * 100) / 100.0;
+    public void start() {
+        GetInfo();
     }
-    public double distance() {
-        double x = Math.sqrt((Math.pow(x2 - x1,2)) + Math.pow(y2 - y1,2));
-        return roundedToHundredth(x);
-    }
-    public double yIntercept() {
-        double yChange = y2 - y1;
-        double xChange = x2 - x1;
-        double change = (yChange / xChange);
-        double c = y2-(change * x2);
-        return roundedToHundredth(c);
-    }
-    public double slope() {
-        double yChange = y2 - y1;
-        double xChange = x2 - x1;
-        return roundedToHundredth((yChange/xChange));
-    }
-    public String equation() {
-        if (slope() == 1) {
-            return "y = x + " + Math.abs(yIntercept());
-        } else if ( slope() == -1) {
-            return "y = -x + " + Math.abs(yIntercept());
-        } else {
-            if (y2 == y1) {
-                return "y = " + Math.abs(yIntercept());
-            }
-            if ((int) slope() == slope()) {
-                return "y = " + slope() + "x" + " + " + Math.abs(yIntercept());
+    private void GetInfo() {
+        String x = "y";
+        while (x.contains("y")) {
+            System.out.println("Welcome to the Linear equation calculator");
+            System.out.print("Enter coordinate one: ");
+            String pointOne = myScanner.nextLine();
+            System.out.print("Enter coordinate two: ");
+            String pointTwo = myScanner.nextLine();
+            int len1 = pointOne.length();
+            int len2 = pointTwo.length();
+            int half1 = pointOne.indexOf(",");
+            int half2 = pointTwo.indexOf(",");
+            String sub1 = pointOne.substring(1,half1);
+            String sub2 = pointOne.substring(half1 + 1,len1 - 1);
+            String sub3 = pointTwo.substring(1,half2);
+            String sub4 = pointTwo.substring(half2 + 1,len2 - 1);
+            int x1 = Integer.parseInt(sub1);
+            int y1 = Integer.parseInt(sub2);
+            int x2 = Integer.parseInt(sub3);
+            int y2 = Integer.parseInt(sub4);
+            linearEquation = new LinearEquation(x1, y1, x2, y2);
+            System.out.println(linearEquation.LineInfo());
+            System.out.println(" ");
+            if (x1 != x2) {
+                System.out.print("Enter a value for x: ");
+                double newX = myScanner.nextDouble();
+                System.out.println(linearEquation.coordinateForX(newX));
+                System.out.print("Would you like to enter another pair of coordinates? y/n: ");
+                x = myScanner.nextLine();
             } else {
-                if (y2 - y1 < 0 && x2 - x1 < 0) {
-                    if (yIntercept() < 0) {
-                        return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" + " " + yIntercept();
-                    }
-                    if (yIntercept() == 0) {
-                        return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" + " ";
-                    }
-                    return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" + " + " + Math.abs(yIntercept());
-                } else if (slope() < 0) {
-                    if (yIntercept() == 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " ";
-                    }
-                    if (yIntercept() < 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + ((yIntercept()));
-                    }
-                    return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " + " + (yIntercept());
-                } else {
-                    if (yIntercept() < 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + ((yIntercept()));
-                    }
-                    if (yIntercept() == 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " ";
-                    }
-                    return "y = " + (y2 - y1) + "/" + Math.abs((x2 - x1)) + "x" + " + " + (yIntercept());
-                }
+                System.out.print("Would you like to enter another pair of coordinates? y/n: ");
+                x = myScanner.nextLine();
             }
-        }
-    }
-    public String coordinateForX(double x) {
-        return "The point on the line is (" + x + "," + ((slope() * x) + Math.abs(yIntercept())) + ")";
-    }
-    public String LineInfo() {
-        if (x2 != x1) {
-            String str = "The 2 points are: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")\n";
-            str += "The equation of the line between these points is: " + equation() + "\n";
-            str += "The slope of the line is: " + slope() + "\n";
-            str += "The y-int of the line is: " + Math.abs(yIntercept()) + "\n";
-            str += "The distance between these two lines is " + distance();
-            return str;
-        } else {
-            String str = "The 2 x-values are equal so its undefined!";
-            return str;
+            if (x.equals("n")) {
+                System.out.println("Goodbye!");
+            }
         }
     }
 }
