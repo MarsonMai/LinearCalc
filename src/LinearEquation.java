@@ -1,4 +1,5 @@
-public class LinearEquation {
+
+    public class LinearEquation {
     private int x1;
     private int x2;
     private int y1;
@@ -30,16 +31,29 @@ public class LinearEquation {
     }
     public String equation() {
         if (slope() == 1) {
-            return "y = x + " + Math.abs(yIntercept());
+            if (yIntercept() < 0) {
+                return "y = x + " + yIntercept();
+            }
+            if (yIntercept() == 0) {
+                return "y = x";
+            }
+            return "y = x + " + yIntercept();
         } else if ( slope() == -1) {
-            return "y = -x + " + Math.abs(yIntercept());
+            if (yIntercept() < 0) {
+                return "y = x + " + yIntercept();
+            }
+            if (yIntercept() == 0) {
+                return "y = x";
+            }
+            return "y = -x + " + (yIntercept());
         } else {
             if (y2 == y1) {
-                return "y = " + Math.abs(yIntercept());
+
+                return "y = " + yIntercept();
             }
             if ((int) slope() == slope()) {
                 if (yIntercept() < 0) {
-                    return "y = " + slope() + "x" + ((yIntercept()));
+                    return "y = " + slope() + "x - " + ((yIntercept()));
                 }
                 if (yIntercept() == 0) {
                     return "y = " + slope() + "x";
@@ -53,23 +67,23 @@ public class LinearEquation {
             } else {
                 if (y2 - y1 < 0 && x2 - x1 < 0) {
                     if (yIntercept() < 0) {
-                        return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" + " " + yIntercept();
+                        return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x - " + Math.abs(yIntercept());
                     }
                     if (yIntercept() == 0) {
                         return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" ;
                     }
-                    return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x" + " " + yIntercept();
+                    return "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x " + yIntercept();
                 } else if (slope() < 0) {
                     if (yIntercept() == 0) {
                         return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x";
                     }
                     if (yIntercept() < 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + ((yIntercept()));
+                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x - " + Math.abs((yIntercept()));
                     }
                     return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + " + " + (yIntercept());
                 } else {
                     if (yIntercept() < 0) {
-                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x" + ((yIntercept()));
+                        return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x - " + Math.abs((yIntercept()));
                     }
                     if (yIntercept() == 0) {
                         return "y = " + (y2 - y1) + "/" + (x2 - x1) + "x";
@@ -80,18 +94,18 @@ public class LinearEquation {
         }
     }
     public String coordinateForX(double x) {
-        return "The point on the line is (" + x + "," + ((slope() * x) + Math.abs(yIntercept())) + ")";
+        return "The point on the line is (" + x + "," + ((slope() * x) + yIntercept()) + ")";
     }
-    public String LineInfo() {
+    public String lineInfo() {
         if (x2 != x1) {
             String str = "The 2 points are: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")\n";
             str += "The equation of the line between these points is: " + equation() + "\n";
             str += "The slope of the line is: " + slope() + "\n";
-            str += "The y-int of the line is: " + Math.abs(yIntercept()) + "\n";
+            str += "The y-int of the line is: " + yIntercept() + "\n";
             str += "The distance between these two lines is " + distance();
             return str;
         } else {
-            String str = "The 2 x-values are equal so its undefined!";
+            String str = "These points are on a vertical line: x = " + x1;
             return str;
         }
     }
