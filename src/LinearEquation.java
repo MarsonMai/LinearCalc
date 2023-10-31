@@ -53,7 +53,7 @@
             }
             if ((int) slope() == slope()) {
                 if (yIntercept() < 0) {
-                    return "y = " + slope() + "x - " + ((yIntercept()));
+                    return "y = " + slope() + "x - " + Math.abs(((yIntercept())));
                 }
                 if (yIntercept() == 0) {
                     return "y = " + slope() + "x";
