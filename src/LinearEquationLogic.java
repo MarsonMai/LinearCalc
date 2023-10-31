@@ -5,13 +5,14 @@ public class LinearEquationLogic {
     public LinearEquationLogic() {
         linearEquation = null;
         myScanner = new Scanner(System.in);
+
     }
     public void start() {
         GetInfo();
     }
     private void GetInfo() {
-        String x = "y";
-        while (x.contains("y")) {
+        String repeat = "y";
+        while (repeat.equals("y")) {
             System.out.println("Welcome to the Linear equation calculator");
             System.out.print("Enter coordinate one: ");
             String pointOne = myScanner.nextLine();
@@ -30,21 +31,17 @@ public class LinearEquationLogic {
             int x2 = Integer.parseInt(sub3);
             int y2 = Integer.parseInt(sub4);
             linearEquation = new LinearEquation(x1, y1, x2, y2);
-            System.out.println(linearEquation.LineInfo());
+            System.out.println(linearEquation.lineInfo());
             System.out.println(" ");
-        if (x1 != x2) {
-            System.out.print("Enter a value for x: ");
-            int newX = myScanner.nextInt();
-            System.out.println(linearEquation.coordinateForX(newX));
+            if (x1 != x2) {
+                System.out.print("Enter a value for x: ");
+                double newX = myScanner.nextDouble();
+                myScanner.nextLine();
+                System.out.println(linearEquation.coordinateForX(newX));
+            }
             System.out.print("Would you like to enter another pair of coordinates? y/n: ");
-            x = myScanner.nextLine();
-        } else {
-            System.out.print("Would you like to enter another pair of coordinates? y/n: ");
-            x = myScanner.nextLine();
+            repeat = myScanner.nextLine().toLowerCase();
         }
-        if (x.equals("n")) {
-            System.out.println("Goodbye!");
-        }
-        }
+        System.out.println("Goodbye!");
     }
 }
